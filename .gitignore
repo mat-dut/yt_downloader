@@ -1,0 +1,9 @@
+/env
+/.vscode
+/dist
+/build
+/__pycache__
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
+main.spec
