@@ -53,7 +53,7 @@ q = ''
 
 while q != "e":
     q = input(
-        f"Insert links \n *-download given links\n l-clear links list\n c-clear contents dir\n m-switch to {input_text}\n d-change default dir\n e-exit\n{links}\n: ")
+        f"Insert links \n *-download given links\n l-clear links list\n c-clear default dir\n m-switch to {input_text}\n d-change default dir\n e-exit\n{links}\n: ")
 
     if q == 'c':
         for i in os.listdir('contents'):
