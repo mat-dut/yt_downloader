@@ -4,11 +4,28 @@ import yt_dlp
 import os
 import yt_dlp
 import time
+import json
+from tkinter import filedialog
+from tkinter import *
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+if not os.path.exists('data.json'):
+
+    with open('data.json', 'w') as f:
+        data = {
+            "path": f"{ROOT_DIR}/contents"
+        }
+        json.dump(data, f)
 
 mode = 'mp3'
 input_text = 'mp4'
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_PATH = ''
+
+with open('data.json', 'r') as f:
+    data = json.load(f)
+    DEFAULT_PATH = data['path']
 
 ydl_opts_mp3 = {
     'format': 'bestaudio/best',
@@ -17,14 +34,14 @@ ydl_opts_mp3 = {
         'preferredcodec': 'mp3',
         'preferredquality': '320',
     }],
-    'outtmpl': f'{ROOT_DIR}/contents/%(title)s.%(ext)s',
+    'outtmpl': f'{DEFAULT_PATH}/%(title)s.%(ext)s',
 }
 
 ydl_opts_mp4 = {
     'postprocessors': [{
         'key': 'FFmpegMetadata',
     }],
-    'outtmpl': f'{ROOT_DIR}/contents/%(title)s.%(ext)s',
+    'outtmpl': f'{DEFAULT_PATH}/%(title)s.%(ext)s',
 }
 
 if not os.path.exists('contents'):
@@ -36,11 +53,12 @@ q = ''
 
 while q != "e":
     q = input(
-        f"Insert links \n *-download given links\n l-clear links list\n c-clear contents dir\n m-switch to {input_text}\n e-exit\n{links}\n: ")
+        f"Insert links \n *-download given links\n l-clear links list\n c-clear contents dir\n m-switch to {input_text}\n d-change default dir\n e-exit\n{links}\n: ")
 
     if q == 'c':
         for i in os.listdir('contents'):
-            os.remove(f'contents/{i}')
+            if i.endswith('.mp3') or i.endswith('.mp4'):
+                os.remove(f'contents/{i}')
 
     elif q == '*':
         if not links:
@@ -67,6 +85,19 @@ while q != "e":
         else:
             mode = 'mp3'
             input_text = 'mp4'
+
+    elif q == 'd':
+
+        root = Tk()
+        root.withdraw()
+        folder_selected = filedialog.askdirectory()
+
+        with open('data.json', 'w') as f:
+            data = {
+                'path': f'{folder_selected}'
+            }
+            json.dump(data, f)
+
     else:
         links.append(q)
 
