@@ -64,7 +64,7 @@ while q != "e":
         links.clear()
 
     elif q == 'e':
-        exit()
+        quit()
 
     elif q == 'l':  # lowercase L
         links = []
