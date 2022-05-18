@@ -6,6 +6,8 @@ import time
 import json
 from tkinter import filedialog
 from tkinter import *
+import url_check
+import config
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -13,51 +15,32 @@ if not os.path.exists('data.json'):
 
     with open('data.json', 'w') as f:
         data = {
-            "path": f"{ROOT_DIR}/contents"
+            "path": f"{ROOT_DIR}/downloads"
         }
         json.dump(data, f)
 
 mode = 'mp3'
 input_text = 'mp4'
 
-DEFAULT_PATH = ''
-
-with open('data.json', 'r') as f:
-    data = json.load(f)
-    DEFAULT_PATH = data['path']
-
-ydl_opts_mp3 = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '320',
-    }],
-    'outtmpl': f'{DEFAULT_PATH}/%(title)s.%(ext)s',
-}
-
-ydl_opts_mp4 = {
-    'postprocessors': [{
-        'key': 'FFmpegMetadata',
-    }],
-    'outtmpl': f'{DEFAULT_PATH}/%(title)s.%(ext)s',
-}
-
-if not os.path.exists('contents'):
-    os.mkdir('contents')
-
+if not os.path.exists('downloads'):
+    os.mkdir('downloads')
 
 links = []
 q = ''
 
 while q != "e":
+
+    ydl_opts = config.return_config(mode)
+
+    DEFAULT_PATH = ydl_opts['DEFAULT_PATH']
+
     q = input(
-        f"Insert links \n *-download given links\n l-clear links list\n c-clear default dir\n m-switch to {input_text}\n d-change default dir\n e-exit\n{links}\n: ")
+        f"Insert links \n *-download given links\n l-clear links list\n c-clear default dir\n m-switch to {input_text}\n d-change default dir (current: {DEFAULT_PATH})\n e-exit\n{links}\n: ")
 
     if q == 'c':
-        for i in os.listdir('contents'):
+        for i in os.listdir(DEFAULT_PATH):
             if i.endswith('.mp3') or i.endswith('.mp4'):
-                os.remove(f'contents/{i}')
+                os.remove(f'{DEFAULT_PATH}/{i}')
 
     elif q == '*':
         if not links:
@@ -65,11 +48,14 @@ while q != "e":
             time.sleep(1)
         else:
             if mode == 'mp3':
-                with yt_dlp.YoutubeDL(ydl_opts_mp3) as ydl:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     ydl.download(links)
             else:
-                with yt_dlp.YoutubeDL(ydl_opts_mp4) as ydl:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     ydl.download(links)
+        print("Done!")
+        time.sleep(1)
+        links.clear()
 
     elif q == 'e':
         exit()
@@ -98,6 +84,10 @@ while q != "e":
             json.dump(data, f)
 
     else:
-        links.append(q)
+        if url_check.check_url(q):
+            links.append(q)
+        else:
+            print("Invalid URL!")
+            time.sleep(1)
 
     os.system('cls')
