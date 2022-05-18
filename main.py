@@ -31,9 +31,6 @@ if not os.path.exists('data.json'):
 mode = 'mp3'
 input_text = 'mp4'
 
-if not os.path.exists('downloads'):
-    os.mkdir('downloads')
-
 links = []
 q = ''
 
