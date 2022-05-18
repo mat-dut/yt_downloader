@@ -1,0 +1,9 @@
+autopep8==1.6.0
+Brotli==1.0.9
+certifi==2021.10.8
+mutagen==1.45.1
+pycodestyle==2.8.0
+pycryptodomex==3.14.1
+toml==0.10.2
+websockets==10.3
+yt-dlp==2022.5.18

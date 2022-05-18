@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from genericpath import exists
 import yt_dlp
 import os
-import yt_dlp
 import time
 import json
 from tkinter import filedialog

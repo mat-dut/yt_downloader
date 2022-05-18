@@ -7,3 +7,4 @@ ffmpeg.exe
 ffplay.exe
 ffprobe.exe
 main.spec
+data.json
