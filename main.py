@@ -11,11 +11,20 @@ import config
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+root = Tk()
+root.withdraw()
+
 if not os.path.exists('data.json'):
+
+    print("Choose default destination folder:")
+
+    folder_selected = filedialog.askdirectory()
+    while folder_selected == "":
+        folder_selected = filedialog.askdirectory()
 
     with open('data.json', 'w') as f:
         data = {
-            "path": f"{ROOT_DIR}/downloads"
+            'path': f'{folder_selected}'
         }
         json.dump(data, f)
 
@@ -72,9 +81,6 @@ while q != "e":
             input_text = 'mp4'
 
     elif q == 'd':
-
-        root = Tk()
-        root.withdraw()
         folder_selected = filedialog.askdirectory()
 
         with open('data.json', 'w') as f:

@@ -8,3 +8,5 @@ ffplay.exe
 ffprobe.exe
 main.spec
 data.json
+/downloads
+/release
