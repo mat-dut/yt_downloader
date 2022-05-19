@@ -1,13 +1,16 @@
 import json
 
 
-def return_config(file_type="mp3"):
-    if file_type == "mp3":
+def return_config(file_type="mp3", destination_folder=None):
 
+    if destination_folder != None:
+        DEFAULT_PATH = destination_folder
+    else:
         with open('data.json', 'r') as f:
             data = json.load(f)
             DEFAULT_PATH = data['path']
 
+    if file_type == "mp3":
         ydl_opts = {
             'format': 'bestaudio/best',
             'postprocessors': [{
@@ -21,11 +24,6 @@ def return_config(file_type="mp3"):
         }
 
     elif file_type == "mp4":
-
-        with open('data.json', 'r') as f:
-            data = json.load(f)
-            DEFAULT_PATH = data['path']
-
         ydl_opts = {
             'postprocessors': [{
                 'key': 'FFmpegMetadata',
