@@ -1,35 +1,32 @@
-from __future__ import unicode_literals
-from genericpath import exists
 import os
 import time
-import json
 from tkinter import filedialog
 from tkinter import *
-import url_check
+from url_check import check_url
 import config
 import downloader
+import get_directory
+from save_to_json import save_to_json
 
 
 def main():
 
     ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+    DATA_FILENAME = 'data.json'
 
     root = Tk()
     root.withdraw()
 
-    if not os.path.exists('data.json'):
+    if not os.path.exists(DATA_FILENAME):
 
         print("Choose default destination folder:")
 
-        folder_selected = filedialog.askdirectory()
-        while folder_selected == "":
-            folder_selected = filedialog.askdirectory()
+        folder_selected = get_directory.get_dir()
 
-        with open('data.json', 'w') as f:
-            data = {
-                'path': f'{folder_selected}'
-            }
-            json.dump(data, f)
+        data = {
+            'path': f'{folder_selected}'
+        }
+        save_to_json(DATA_FILENAME, data)
 
     mode = 'mp3'
     input_text = 'mp4'
@@ -76,16 +73,16 @@ def main():
                 input_text = 'mp4'
 
         elif q == 'd':
-            folder_selected = filedialog.askdirectory()
+            folder_selected = get_directory.get_dir()
 
-            with open('data.json', 'w') as f:
-                data = {
-                    'path': f'{folder_selected}'
-                }
-                json.dump(data, f)
+            data = {
+                'path': f'{folder_selected}'
+            }
+
+            save_to_json(DATA_FILENAME, data)
 
         else:
-            if url_check.check_url(q):
+            if check_url(q):
                 links.append(q)
             else:
                 print("Invalid URL!")
@@ -95,31 +92,9 @@ def main():
 
 
 if __name__ == "__main__":
-    import argparse
     import sys
-    import downloader
-
     if len(sys.argv) > 1:
-
-        parser = argparse.ArgumentParser(description='yt_downloader')
-
-        parser.add_argument(
-            "-L", "--links", help="links seperated with a space", required=True, nargs="*")
-
-        parser.add_argument('-M', '--mode', help='mp3 or mp4', required=True)
-
-        parser.add_argument('-D', '--destination',
-                            help='destination folder', required=True)
-
-        args = parser.parse_args()
-
-        links = args.links
-        mode = args.mode
-        destination = args.destination
-
-        ydl_opts = config.return_config(mode, destination)
-
-        downloader.download(links, ydl_opts)
-
+        import main_commandLine
+        main_commandLine.run()
     else:
         main()
