@@ -7,6 +7,15 @@ import config
 import downloader
 import get_directory
 from save_to_json import save_to_json
+import sys
+
+
+def my_except_hook(exctype, value, traceback):
+
+    sys.__excepthook__(exctype, value, traceback)
+
+
+sys.excepthook = my_except_hook
 
 
 def main():
