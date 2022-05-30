@@ -1,20 +1,5 @@
-import os
-import time
-from tkinter import filedialog
-from tkinter import *
-from url_check import check_url
-import config
-import downloader
-import get_directory
-from save_to_json import save_to_json
-import sys
-
-
 def my_except_hook(exctype, value, traceback):
     sys.__excepthook__(exctype, value, traceback)
-
-
-sys.excepthook = my_except_hook
 
 
 def main():
@@ -101,8 +86,22 @@ def main():
 
 if __name__ == "__main__":
     import sys
+    import os
+    import time
+    from tkinter import filedialog
+    from tkinter import *
+    from url_check import check_url
+    import config
+    import downloader
+    import get_directory
+    from save_to_json import save_to_json
+
+    sys.excepthook = my_except_hook
+
     if len(sys.argv) > 1:
         import main_commandLine
         main_commandLine.run()
     else:
         main()
+else:
+    print("Package is not yet importable.")

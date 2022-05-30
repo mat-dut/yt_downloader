@@ -4,6 +4,8 @@ Paste YT URL's and download mp3/mp4 files
 
 * Using [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 
+* FFmpeg is required! [Download](https://ffmpeg.org/download.html)
+
 ## **Command line functions**
 
 ```x
