@@ -15,3 +15,15 @@ Paste YT URL's and download mp3/mp4 files
   -D DESTINATION, --destination DESTINATION destination folder
 
 ```
+
+## **Use as a package**
+
+```python
+from yt_downloader import downloader
+from yt_downloader.config import return_config
+
+options = return_config('mp3') # Used to configure download configuration -return_config(mode, destination)
+
+downloader.download(['https://www.youtube.com/watch?v=dQw4w9WgXcQ'], options) # Put links in a list
+
+```

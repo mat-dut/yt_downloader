@@ -1,4 +1,5 @@
 import json
+import os
 
 
 def return_config(file_type="mp3", destination_folder=None):
@@ -6,9 +7,12 @@ def return_config(file_type="mp3", destination_folder=None):
     if destination_folder != None:
         DEFAULT_PATH = destination_folder
     else:
-        with open('data.json', 'r') as f:
-            data = json.load(f)
-            DEFAULT_PATH = data['path']
+        if os.path.exists('data.json'):
+            with open('data.json', 'r') as f:
+                data = json.load(f)
+                DEFAULT_PATH = data['path']
+        else:
+            DEFAULT_PATH = ''
 
     if file_type == "mp3":
         ydl_opts = {
