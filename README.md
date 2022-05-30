@@ -16,7 +16,7 @@ Paste YT URL's and download mp3/mp4 files
 
 ```
 
-## **Use as a package**
+## **Use as a [PyPI](https://pypi.org/project/pyytdl/) package**
 
 ```bash
 pip install pyytdl
