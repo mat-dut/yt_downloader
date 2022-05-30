@@ -4,7 +4,7 @@ Paste YT URL's and download mp3/mp4 files
 
 * Using [yt-dlp](https://github.com/yt-dlp/yt-dlp)
 
-* FFmpeg executables are required! [Download](https://ffmpeg.org/download.html)
+* FFmpeg executables are required! [Download](https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-essentials.7z)
 
 ## **Command line functions**
 
@@ -19,8 +19,8 @@ Paste YT URL's and download mp3/mp4 files
 ## **Use as a package**
 
 ```python
-from yt_downloader import downloader
-from yt_downloader.config import return_config
+from pyyt import downloader
+from pyyt.config import return_config
 
 options = return_config('mp3') # Used to configure download configuration -return_config(mode, destination)
 

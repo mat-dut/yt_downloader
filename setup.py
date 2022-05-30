@@ -1,17 +1,21 @@
 
 from setuptools import setup, find_packages
+import pathlib
+here = pathlib.Path(__file__).parent.resolve()
 
+long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
-    name='example_publish_pypi_medium',
-    version='0.6',
+    name='pyytdl',
+    version='1.3.2',
     license='MIT',
-    author="Giorgos Myrianthous",
-    author_email='email@example.com',
-    packages=find_packages('yt_downloader'),
-    package_dir={'': 'yt_downloader'},
-    url='https://github.com/gmyrianthous/example-publish-pypi',
-    keywords='example project',
+    author="MatiuDev",
+    author_email='matias.devacc@gmail.com',
+    description='yt_downloader packaged',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    packages=find_packages(),
+    url='https://github.com/MatiuDev/yt_downloader',
     install_requires=[
         'yt-dlp',
     ],
