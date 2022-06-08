@@ -7,3 +7,4 @@ data.json
 /pyyt/ffmpeg.exe
 /pyyt/ffplay.exe
 /pyyt/ffprobe.exe
+/pyyt/__pycache__
