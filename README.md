@@ -22,6 +22,8 @@ Paste YT URL's and download mp3/mp4 files
 pip install pyytdl
 ```
 
+### **Usage**
+
 ```python
 from pyyt import downloader
 from pyyt.config import return_config

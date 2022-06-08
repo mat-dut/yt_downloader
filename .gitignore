@@ -5,5 +5,5 @@ data.json
 /build
 /.vscode
 /pyyt/ffmpeg.exe
-/pyyt/ffmpeg.exe
+/pyyt/ffplay.exe
 /pyyt/ffprobe.exe
